@@ -74,7 +74,7 @@ Upon completion of the optimization, the program generates a plot of the output 
 
 ## Video Demonstration
 
-[**Link to your video demonstration here**]
+
 
 ## Contributing
 
