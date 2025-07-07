@@ -1,0 +1,1418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  fmiVersion="1.0"
+  modelName="boost_converter"
+  modelIdentifier="boost_converter"
+  guid="{e9a325c4-da37-4e21-993a-4b8ad0cb3425}"
+  generationTool="Dymola Version 2023 (64-bit), 2022-04-13"
+  generationDateAndTime="2024-08-02T06:57:30Z"
+  variableNamingConvention="structured"
+  numberOfContinuousStates="2"
+  numberOfEventIndicators="10">
+  <UnitDefinitions>
+    <BaseUnit
+      unit="K">
+      <DisplayUnitDefinition
+        displayUnit="degC"
+        offset="-273.15"/>
+    </BaseUnit>
+  </UnitDefinitions>
+  <TypeDefinitions>
+    <Type
+      name="Modelica.Blocks.Interfaces.BooleanInput">
+      <BooleanType/>
+    </Type>
+    <Type
+      name="Modelica.Blocks.Interfaces.BooleanOutput">
+      <BooleanType/>
+    </Type>
+    <Type
+      name="Modelica.Blocks.Interfaces.RealInput">
+      <RealType/>
+    </Type>
+    <Type
+      name="Modelica.Blocks.Interfaces.RealOutput">
+      <RealType/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Capacitance">
+      <RealType
+        quantity="Capacitance"
+        unit="F"
+        min="0.0"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Conductance">
+      <RealType
+        quantity="Conductance"
+        unit="S"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Current">
+      <RealType
+        quantity="ElectricCurrent"
+        unit="A"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.ElectricPotential">
+      <RealType
+        quantity="ElectricPotential"
+        unit="V"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Frequency">
+      <RealType
+        quantity="Frequency"
+        unit="Hz"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Inductance">
+      <RealType
+        quantity="Inductance"
+        unit="H"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.LinearTemperatureCoefficient">
+      <RealType
+        quantity="LinearTemperatureCoefficient"
+        unit="1/K"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Power">
+      <RealType
+        quantity="Power"
+        unit="W"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Resistance">
+      <RealType
+        quantity="Resistance"
+        unit="Ohm"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Temperature">
+      <RealType
+        quantity="ThermodynamicTemperature"
+        unit="K"
+        displayUnit="degC"
+        min="0.0"
+        nominal="300.0"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Time">
+      <RealType
+        quantity="Time"
+        unit="s"/>
+    </Type>
+    <Type
+      name="Modelica.Units.SI.Voltage">
+      <RealType
+        quantity="ElectricPotential"
+        unit="V"/>
+    </Type>
+    <Type
+      name="Modelica.Blocks.Types.LimiterHomotopy">
+      <EnumerationType min="1"
+        max="4">
+        <Item name="NoHomotopy"
+          description="Homotopy is not used"/>
+        <Item name="Linear"
+          description="Simplified model without limits"/>
+        <Item name="UpperLimit"
+          description="Simplified model fixed at upper limit"/>
+        <Item name="LowerLimit"
+          description="Simplified model fixed at lower limit"/>
+      </EnumerationType>
+    </Type>
+  </TypeDefinitions>
+  <DefaultExperiment startTime="0.0"
+    stopTime="1.0"
+    tolerance="0.0001"/>
+  <ModelVariables>
+    <ScalarVariable
+      name="constantVoltage.V"
+      valueReference="16777216"
+      description="Value of constant voltage"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        start="80"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.v"
+      valueReference="234881024"
+      description="Voltage drop of the two pins (= p.v - n.v)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.p.v"
+      valueReference="234881024"
+      description="Potential at the pin"
+      variability="parameter"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.p.i"
+      valueReference="100663354"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.n.v"
+      valueReference="100663296"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.n.i"
+      valueReference="33554432"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="constantVoltage.i"
+      valueReference="100663354"
+      description="Current flowing from pin p to pin n">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.RonTransistor"
+      valueReference="16777217"
+      description="Transistor closed resistance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Resistance"
+        start="1E-05"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.GoffTransistor"
+      valueReference="16777218"
+      description="Transistor opened conductance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Conductance"
+        start="1E-05"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.VkneeTransistor"
+      valueReference="16777219"
+      description="Transistor threshold voltage"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.RonDiode"
+      valueReference="16777220"
+      description="Closed diode resistance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Resistance"
+        min="0.0"
+        start="1E-05"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.GoffDiode"
+      valueReference="16777221"
+      description="Opened diode conductance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Conductance"
+        min="0.0"
+        start="1E-05"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.VkneeDiode"
+      valueReference="16777222"
+      description="Diode forward threshold voltage"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        min="0.0"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_p1.v"
+      valueReference="637534267"
+      description="Potential at the pin">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_p1.i"
+      valueReference="33554432"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_n1.v"
+      valueReference="100663297"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_n1.i"
+      valueReference="905969724"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.vDC1"
+      valueReference="637534267"
+      description="DC voltage side 1"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.iDC1"
+      valueReference="33554432"
+      description="DC current side 1"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.powerDC1"
+      valueReference="905969725"
+      description="DC power side 1">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_p2.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_p2.i"
+      valueReference="637534270"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_n2.v"
+      valueReference="100663298"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.dc_n2.i"
+      valueReference="905969727"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.vDC2"
+      valueReference="33554433"
+      description="DC voltages side 2"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.iDC2"
+      valueReference="637534270"
+      description="DC current side 2"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.powerDC2"
+      valueReference="905969728"
+      description="DC power side 2">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.T"
+      valueReference="100663300"
+      description="Fixed device temperature if useHeatPort = false"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"
+        start="293.15"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.LossPower"
+      valueReference="905969729"
+      description="Loss power leaving component via heatPort">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.T_heatPort"
+      valueReference="100663301"
+      description="Temperature of heatPort"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"
+        start="293.15"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.useConstantEnable"
+      valueReference="100663302"
+      description="Disable boolean input and use constantEnable, if true"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.constantEnable"
+      valueReference="16777223"
+      description="Constant enabling of firing signals"
+      variability="parameter">
+      <Boolean start="true"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.m"
+      valueReference="100663303"
+      description="Number of phases"
+      variability="constant">
+      <Integer min="1"
+        start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.useConstantEnable"
+      valueReference="100663304"
+      description="Disable boolean input and use constantEnable, if true"
+      variability="constant">
+      <Boolean start="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.constantEnable"
+      valueReference="100663305"
+      description="Constant enabling of firing signals"
+      variability="parameter">
+      <Boolean/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.m"
+      valueReference="100663306"
+      description="Number of phases"
+      variability="constant">
+      <Integer min="1"
+        start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.enableConstantSource.k"
+      valueReference="100663307"
+      description="Constant output value"
+      variability="parameter">
+      <Boolean/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.enableConstantSource.y"
+      valueReference="100663307"
+      description="Connector of Boolean output signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.booleanReplicator.nout"
+      valueReference="100663308"
+      description="Number of outputs"
+      variability="constant">
+      <Integer start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.booleanReplicator.u"
+      valueReference="100663307"
+      description="Connector of Boolean input signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.booleanReplicator.y[1]"
+      valueReference="100663307"
+      description="Connector of Boolean output signals"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.enableLogic.internalEnable[1]"
+      valueReference="100663307"
+      description="m replicated enable signals"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.andCondition_p.u1"
+      valueReference="637534254"
+      description="Connector of first Boolean input signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.andCondition_p.u2"
+      valueReference="100663307"
+      description="Connector of second Boolean input signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.andCondition_p.y"
+      valueReference="637534253"
+      description="Connector of Boolean output signal"
+      variability="discrete">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.fire_p"
+      valueReference="637534254"
+      description="Firing signal of positive potential transistor"
+      variability="discrete">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.v"
+      valueReference="637534267"
+      description="Voltage drop of the two pins (= p.v - n.v)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.p.v"
+      valueReference="637534267"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.p.i"
+      valueReference="637534274"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.n.v"
+      valueReference="100663309"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.n.i"
+      valueReference="637534275"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.i"
+      valueReference="637534274"
+      description="Current flowing from pin p to pin n"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.Ron"
+      valueReference="100663310"
+      description="Forward state-on differential resistance (closed resistance)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Resistance"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.Goff"
+      valueReference="100663311"
+      description="Backward state-off conductance (opened conductance)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Conductance"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.Vknee"
+      valueReference="100663312"
+      description="Forward threshold voltage"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.T"
+      valueReference="16777224"
+      description="Fixed device temperature if useHeatPort = false"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"
+        start="293.15"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.LossPower"
+      valueReference="905969732"
+      description="Loss power leaving component via heatPort">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.T_heatPort"
+      valueReference="234881032"
+      description="Temperature of heatPort"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.off"
+      valueReference="637534255"
+      description="Switching state"
+      variability="discrete">
+      <Boolean start="true"
+        fixed="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.transistor.fire"
+      valueReference="637534253"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.v"
+      valueReference="637534278"
+      description="Voltage drop of the two pins (= p.v - n.v)">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.p.v"
+      valueReference="637534267"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.p.i"
+      valueReference="637534279"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.n.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.n.i"
+      valueReference="637534270"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.i"
+      valueReference="637534279"
+      description="Current flowing from pin p to pin n">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.Ron"
+      valueReference="100663316"
+      description="Forward state-on differential resistance (closed resistance)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Resistance"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.Goff"
+      valueReference="100663317"
+      description="Backward state-off conductance (opened conductance)"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Conductance"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.Vknee"
+      valueReference="100663318"
+      description="Forward threshold voltage"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        min="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.T"
+      valueReference="16777225"
+      description="Fixed device temperature if useHeatPort = false"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"
+        start="293.15"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.LossPower"
+      valueReference="905969736"
+      description="Loss power leaving component via heatPort">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.T_heatPort"
+      valueReference="234881033"
+      description="Temperature of heatPort"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="boost.diode.off"
+      valueReference="637534256"
+      description="Switching state"
+      variability="discrete">
+      <Boolean start="true"
+        fixed="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.v"
+      valueReference="637534282"
+      description="Voltage drop of the two pins (= p.v - n.v)">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.p.v"
+      valueReference="234881024"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.p.i"
+      valueReference="33554432"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.n.v"
+      valueReference="637534267"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.n.i"
+      valueReference="100663354"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.i"
+      valueReference="33554432"
+      description="Current flowing from pin p to pin n">
+      <Real
+        declaredType="Modelica.Units.SI.Current"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(inductor.i)"
+      valueReference="587202560"
+      description="der(Current flowing from pin p to pin n)">
+      <Real
+        unit="A/s"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="inductor.L"
+      valueReference="16777226"
+      description="Inductance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Inductance"
+        start="0.001"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="ground.p.v"
+      valueReference="100663322"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="ground.p.i"
+      valueReference="905969739"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.useConstantDutyCycle"
+      valueReference="100663323"
+      description="Enables constant duty cycle"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.constantDutyCycle"
+      valueReference="16777227"
+      description="Constant duty cycle"
+      variability="parameter">
+      <Real start="0.2"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.f"
+      valueReference="16777228"
+      description="Switching frequency"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Frequency"
+        start="20000"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.startTime"
+      valueReference="16777229"
+      description="Start time"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.dutyCycle"
+      valueReference="234881043"
+      description="Duty cycle"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.fire"
+      valueReference="637534254"
+      description="Firing PWM signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.notFire"
+      valueReference="905969713"
+      description="Firing PWM signal"
+      variability="discrete">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.uMax"
+      valueReference="16777230"
+      description="Upper limits of input signals"
+      variability="parameter">
+      <Real start="1"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.uMin"
+      valueReference="16777231"
+      description="Lower limits of input signals"
+      variability="parameter">
+      <Real start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.strict"
+      valueReference="100663324"
+      description="= true, if strict limits with noEvent(..)"
+      variability="constant">
+      <Boolean start="false"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.homotopyType"
+      valueReference="100663325"
+      description="Simplified model for homotopy-based initialization"
+      variability="constant">
+      <Enumeration
+        declaredType="Modelica.Blocks.Types.LimiterHomotopy"
+        start="2"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.u"
+      valueReference="234881043"
+      description="Connector of Real input signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.limiter.y"
+      valueReference="100663326"
+      description="Connector of Real output signal"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.greaterEqual.u1"
+      valueReference="637534284"
+      description="Connector of first Real input signal">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.greaterEqual.u2"
+      valueReference="637534258"
+      description="Connector of second Real input signal"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.greaterEqual.y"
+      valueReference="637534254"
+      description="Connector of Boolean output signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.zeroOrderHold.samplePeriod"
+      valueReference="100663327"
+      description="Sample period of component"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"
+        min="1E-13"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.zeroOrderHold.startTime"
+      valueReference="100663328"
+      description="First sample time instant"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.zeroOrderHold.u"
+      valueReference="100663326"
+      description="Connector of Real input signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.zeroOrderHold.y"
+      valueReference="637534258"
+      description="Connector of Real output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.zeroOrderHold.ySample"
+      valueReference="905969717"
+      variability="discrete">
+      <Real start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.amplitude"
+      valueReference="100663329"
+      description="Amplitude of saw tooth"
+      variability="constant">
+      <Real start="1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.period"
+      valueReference="100663330"
+      description="Time for one period"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"
+        min="1E-60"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.nperiod"
+      valueReference="100663331"
+      description="Number of periods (&lt; 0 means infinite number of periods)"
+      variability="constant">
+      <Integer start="-1"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.y"
+      valueReference="637534284"
+      description="Connector of Real output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.offset"
+      valueReference="100663332"
+      description="Offset of output signal y"
+      variability="constant">
+      <Real start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.sawtooth.startTime"
+      valueReference="100663333"
+      description="Output y = offset for time &lt; startTime"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.inverse.u"
+      valueReference="637534254"
+      description="Connector of Boolean input signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanInput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="pwm.inverse.y"
+      valueReference="905969713"
+      description="Connector of Boolean output signal"
+      variability="discrete"
+      alias="alias">
+      <Boolean
+        declaredType="Modelica.Blocks.Interfaces.BooleanOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor.p.v"
+      valueReference="637534267"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor.p.i"
+      valueReference="33554432"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor.n.v"
+      valueReference="637534267"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor.n.i"
+      valueReference="100663354"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor.i"
+      valueReference="33554432"
+      description="Current in the branch from p to n as output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="A"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.v"
+      valueReference="33554433"
+      description="Voltage drop of the two pins (= p.v - n.v)">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"
+        start="170"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="der(capacitor.v)"
+      valueReference="587202561"
+      description="der(Voltage drop of the two pins (= p.v - n.v))">
+      <Real
+        unit="V/s"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.p.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.p.i"
+      valueReference="637534285"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.n.v"
+      valueReference="100663334"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.n.i"
+      valueReference="637534286"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.i"
+      valueReference="637534285"
+      description="Current flowing from pin p to pin n"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="capacitor.C"
+      valueReference="16777232"
+      description="Capacitance"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Capacitance"
+        start="0.0006"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="voltageSensor.p.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="voltageSensor.p.i"
+      valueReference="100663335"
+      description="Current flowing into the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.Current"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="voltageSensor.n.v"
+      valueReference="100663336"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="voltageSensor.n.i"
+      valueReference="100663337"
+      description="Current flowing into the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.Current"
+        start="0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="voltageSensor.v"
+      valueReference="33554433"
+      description="Voltage between pin p and n (= p.v - n.v) as output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="V"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor1.p.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor1.p.i"
+      valueReference="637534287"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor1.n.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor1.n.i"
+      valueReference="637534288"
+      description="Current flowing into the pin">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="currentSensor1.i"
+      valueReference="637534287"
+      description="Current in the branch from p to n as output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="A"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.T_ref"
+      valueReference="16777233"
+      description="Reference temperature"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"
+        start="300.15"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.alpha"
+      valueReference="16777234"
+      description="Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.LinearTemperatureCoefficient"
+        start="0"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.v"
+      valueReference="33554433"
+      description="Voltage drop of the two pins (= p.v - n.v)"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Voltage"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.p.v"
+      valueReference="33554433"
+      description="Potential at the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.p.i"
+      valueReference="637534287"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.n.v"
+      valueReference="100663338"
+      description="Potential at the pin"
+      variability="constant">
+      <Real
+        declaredType="Modelica.Units.SI.ElectricPotential"
+        start="0.0"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.n.i"
+      valueReference="637534288"
+      description="Current flowing into the pin"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.i"
+      valueReference="637534287"
+      description="Current flowing from pin p to pin n"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Current"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.T"
+      valueReference="100663340"
+      description="Fixed device temperature if useHeatPort = false"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.LossPower"
+      valueReference="905969745"
+      description="Loss power leaving component via heatPort">
+      <Real
+        declaredType="Modelica.Units.SI.Power"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.T_heatPort"
+      valueReference="100663340"
+      description="Temperature of heatPort"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Units.SI.Temperature"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.R_actual"
+      valueReference="637534264"
+      description="Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Units.SI.Resistance"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="resistor1.R"
+      valueReference="637534265"
+      variability="discrete">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealInput"
+        unit="Ohm"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="const3.k"
+      valueReference="16777235"
+      description="Constant output value"
+      variability="parameter">
+      <Real start="0.5"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="const3.y"
+      valueReference="234881043"
+      description="Connector of Real output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.height"
+      valueReference="16777236"
+      description="Height of step"
+      variability="parameter">
+      <Real
+        unit="Ohm"
+        start="5"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.y"
+      valueReference="637534265"
+      description="Connector of Real output signal"
+      alias="alias">
+      <Real
+        declaredType="Modelica.Blocks.Interfaces.RealOutput"
+        unit="Ohm"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.offset"
+      valueReference="16777237"
+      description="Offset of output signal y"
+      variability="parameter">
+      <Real
+        unit="Ohm"
+        start="20"
+        fixed="true"/>
+    </ScalarVariable>
+    <ScalarVariable
+      name="step1.startTime"
+      valueReference="16777238"
+      description="Output y = offset for time &lt; startTime"
+      variability="parameter">
+      <Real
+        declaredType="Modelica.Units.SI.Time"
+        start="0.5"
+        fixed="true"/>
+    </ScalarVariable>
+  </ModelVariables>
+  <Implementation>
+    <CoSimulation_StandAlone>
+      <Capabilities
+        canHandleVariableCommunicationStepSize="true"
+        canHandleEvents="true"
+        canBeInstantiatedOnlyOncePerProcess="false"
+        canInterpolateInputs="1"
+        maxOutputDerivativeOrder="1"
+        canNotUseMemoryManagementFunctions="true"/>
+    </CoSimulation_StandAlone>
+  </Implementation>
+</fmiModelDescription>

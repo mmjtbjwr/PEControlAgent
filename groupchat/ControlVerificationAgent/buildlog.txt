@@ -1,0 +1,48 @@
+Building FMU (Visual C++) 
+64-bit mode activated. 
+Compiling the model (Visual C++) with FMI. 
+ 
+fmiFunctions.c
+C:\Program Files\Dymola 2023\source\FMI\fmiPlatformTypes_.h(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+dsmodel.c
+正在生成代码...
+  正在创建库 ~FMUOutput\binaries\win64\boost_converter.lib 和对象 ~FMUOutput\binaries\win64\boost_converter.exp
+Compiling the model (Visual C++) with FMI. 
+ 
+fmiFunctions.c
+C:\Program Files\Dymola 2023\source\FMI\fmiPlatformTypes_.h(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+dsmodel.c
+正在生成代码...
+  正在创建库 ~FMUOutput\binaries\win32\boost_converter.lib 和对象 ~FMUOutput\binaries\win32\boost_converter.exp
+Adding [modelDescription.xml] ... OK
+Adding [binaries\win32\boost_converter.dll] ... OK
+Adding [binaries\win64\boost_converter.dll] ... OK
+Adding [documentation\index.html] ... OK
+Adding [documentation\LICENSE_CVODE.txt] ... OK
+Adding [documentation\LICENSE_f2c.txt] ... OK
+Adding [documentation\LICENSE_FMI.txt] ... OK
+Adding [documentation\LICENSE_HDF5.txt] ... OK
+Adding [documentation\LICENSE_LAPACK.txt] ... OK
+Adding [documentation\LICENSE_ModelicaFFT.txt] ... OK
+Adding [documentation\LICENSE_ModelicaInternal.txt] ... OK
+Adding [documentation\LICENSE_ModelicaIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaMatIO.txt] ... OK
+Adding [documentation\LICENSE_ModelicaRandom.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStandardTables.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStandardTablesUsertab.txt] ... OK
+Adding [documentation\LICENSE_ModelicaStrings.txt] ... OK
+Adding [documentation\LICENSE_ModelicaUtilities.txt] ... OK
+Adding [documentation\LICENSE_MSL.txt] ... OK
+Adding [documentation\LICENSE_snprintf.txt] ... OK
+Adding [documentation\LICENSE_stdint_msvc.txt] ... OK
+Adding [documentation\LICENSE_SUNDIALS.txt] ... OK
+Adding [documentation\LICENSE_SuperLU_MT.txt] ... OK
+Adding [documentation\LICENSE_TPL.txt] ... OK
+Adding [documentation\LICENSE_uthash.txt] ... OK
+Adding [documentation\LICENSE_win32_dirent.txt] ... OK
+Adding [documentation\LICENSE_ZLIB.txt] ... OK
+Adding [documentation\_main.html] ... OK
+Adding [documentation\_opensource.html] ... OK
+ 
+Successful creation of boost_converter.fmu. 
+ 
