@@ -73,7 +73,7 @@ The optimization process employs an LLM-guided dual-layer optimization strategy.
 Upon completion of the optimization, the program generates a plot of the output voltage over time, saved as 'boost\_converter\_output.png'. Additionally, console output will display the best parameters and performance evaluation results. In the DC-DC boost converter case study, the LLM-driven autonomous optimization process reduced the cost function by 93.64%.
 
 ## Video Demonstration
-https://github.com/mmjtbjwr/PEControlAgent/raw/main/video.mp4
+https://github.com/user-attachments/assets/6a00de48-4a5c-491a-b2b9-004bec7d7700
 
 
 
